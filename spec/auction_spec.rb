@@ -2,6 +2,7 @@ require "spec_helper"
 
 RSpec.describe Auction do
   before(:each) do
+    allow(Date).to receive(:today) { Date.jd(2451544) }
     @auction = Auction.new
     @item1 = Item.new("Chalkware Piggy Bank")
     @item2 = Item.new("Bamboo Picture Frame")
@@ -20,6 +21,12 @@ RSpec.describe Auction do
   describe "#init" do
     it "exists" do
       expect(@auction).to be_a Auction
+    end
+  end
+
+  describe "#date" do
+    it "returns date in 'dd/mm/yyyy'" do
+      expect(@auction.date).to eq "31/12/1999"
     end
   end
 
