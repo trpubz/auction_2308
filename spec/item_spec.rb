@@ -42,4 +42,11 @@ RSpec.describe Item do
       expect { @item1.add_bid("TP", 3377) }.to raise_error FrozenError
     end
   end
+
+  describe "#highest_bidder" do
+    it "sets the @winner" do
+      @item1.highest_bidder(@attendee1)
+      expect(@item1.winner).to eq @attendee1
+    end
+  end
 end

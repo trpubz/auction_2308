@@ -99,5 +99,20 @@ RSpec.describe Auction do
         expect(@auction.bidder_info).to eq expected
       end
     end
+
+    describe "#close_auction" do
+      it "returns hash of Item and Winner k,v pairs" do
+        expected = {
+          @item1 => @attendee1,
+          @item2 => "Not Sold",
+          @item3 => @attendee2,
+          @item4 => @attendee3,
+          @item5 => "Not Sold"
+        }
+
+        @item3.add_bid(@attendee2, 15)
+        expect(@auction.close_auction).to eq expected
+      end
+    end
   end
 end

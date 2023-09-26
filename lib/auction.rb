@@ -3,11 +3,12 @@ require_relative "attendee"
 require "date"
 
 class Auction
-  attr_reader :items
+  attr_reader :items, :open
 
   def initialize
     @date = Date.today
     @items = []
+    @open = true
   end
 
   def date
@@ -45,5 +46,25 @@ class Auction
     end
 
     bidders
+  end
+
+  def close_auction
+    @open = false
+
+    @items.sort_by! { |item| item.current_high_bid }.reverse!
+    @items.each do |item|
+      sorted_bids = item.bids.sort_by { |_, bid| bid }.reverse
+      item.bids = sorted_bids
+
+      item.bids.each do |attendee, bid|
+        if attendee.budget >= bid
+          item.highest_bidder(attendee)
+          attendee.budget -= bid
+          break
+        end
+      end
+    end
+
+    @items.each_with_object({}) { |item, hsh| hsh[item] = item.winner }
   end
 end

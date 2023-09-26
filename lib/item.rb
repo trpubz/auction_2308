@@ -1,12 +1,14 @@
 require_relative "attendee"
 
 class Item
-  attr_reader :name, :bids
+  attr_reader :name, :winner
+  attr_accessor :bids
 
   def initialize(name)
     @name = name
     @bids = {}
     @open = true
+    @winner = "Not Sold"
   end
 
   def add_bid(attendee, bid)
@@ -24,5 +26,9 @@ class Item
   def close_bidding
     @open = false
     current_high_bid
+  end
+
+  def highest_bidder(attendee)
+    @winner = attendee
   end
 end

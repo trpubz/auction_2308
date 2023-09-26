@@ -1,5 +1,6 @@
 class Attendee
-  attr_reader :name, :budget, :bid_items
+  attr_reader :name, :bid_items
+  attr_accessor :budget
 
   def initialize(args)
     @name = args[:name]
