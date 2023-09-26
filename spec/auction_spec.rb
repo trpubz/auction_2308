@@ -66,5 +66,11 @@ RSpec.describe Auction do
         expect(@auction.potential_revenue).to eq 87
       end
     end
+
+    describe "#bidders" do
+      it "returns array of bidder's names" do
+        expect(@auction.bidders).to eq %w[Bob Megan Mike]
+      end
+    end
   end
 end
