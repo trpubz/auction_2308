@@ -10,6 +10,7 @@ class Item
 
   def add_bid(attendee, bid)
     @bids[attendee] = bid
+    attendee.bid_on_item(self)
   end
 
   def current_high_bid

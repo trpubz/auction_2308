@@ -67,9 +67,29 @@ RSpec.describe Auction do
       end
     end
 
+    describe "#unique_bidders" do
+      it "returns array of unique bidder objects" do
+        expect(@auction.unique_bidders).to eq [@attendee2, @attendee1, @attendee3]
+      end
+    end
+
     describe "#bidders" do
       it "returns array of bidder's names" do
         expect(@auction.bidders).to eq %w[Bob Megan Mike]
+      end
+    end
+
+    describe "#bidder_info" do
+      it "returns a hash of attendees with their budgets and bid items" do
+        expected = {
+          @attendee2 => {budget: 75,
+                         items: [@item1]},
+          @attendee1 => {budget: 50,
+                         items: [@item1]},
+          @attendee3 => {budget: 100,
+                         items: [@item4]}
+        }
+        expect(@auction.bidder_info).to eq expected
       end
     end
   end

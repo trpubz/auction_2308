@@ -24,7 +24,20 @@ class Auction
     @items.reduce(0) { |tot, item| tot + item.current_high_bid }
   end
 
+  def unique_bidders
+    @items.flat_map { |item| item.bids.keys }.uniq
+  end
+
   def bidders
-    @items.flat_map { |item| item.bids.keys.map { |attendee| attendee.name } }.uniq
+    unique_bidders.map(&:name)
+  end
+
+  def bidder_info
+    bidders = {}
+    unique_bidders.each do |bidder|
+      bidders[bidder] = {budget: bidder.budget, items: bidder.bid_items}
+    end
+
+    bidders
   end
 end
