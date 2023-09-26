@@ -35,4 +35,11 @@ RSpec.describe Item do
       expect(@item1.current_high_bid).to eq 22
     end
   end
+
+  describe "#close_bidding" do
+    it "closes bidding and returns highest bid" do
+      expect(@item1.close_bidding).to eq 22
+      expect { @item1.add_bid("TP", 3377) }.to raise_error FrozenError
+    end
+  end
 end
